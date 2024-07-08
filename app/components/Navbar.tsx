@@ -47,7 +47,7 @@ const Navbar = () => {
                     }
                     to='/project'
                   >
-                    Project
+                    Projects
                   </NavLink>
                   <button
                     onClick={() =>
@@ -195,7 +195,7 @@ const Navbar = () => {
                     ? "bg-red-50 border-red-500 text-red-500 block pl-3 pr-4 py-2 border-l-4 text-base font-medium dark:bg-gray-800"
                     : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium dark:text-white dark:hover-gray-700"
                 }
-                to='/projects'
+                to='/project'
               >
                 Projects
               </NavLink>
