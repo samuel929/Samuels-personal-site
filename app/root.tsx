@@ -43,6 +43,12 @@ function App() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <Meta />
         <PreventFlashOnWrongTheme ssrTheme={Boolean(theme)} />
+        <script
+          async
+          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3829158537608414'
+          crossOrigin='anonymous'
+        ></script>
+
         <Links />
       </head>
       <body className='bg-white text-black dark:bg-gray-900 dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800'>

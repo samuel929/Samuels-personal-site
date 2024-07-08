@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { gql } from "graphql-request";
 import { hygraph } from "~/utils/hygraph.server";
 import { Post } from "~/utils/interface";
-
+import AdComponent from "~/components/AdComponent";
 interface IAppProps {
   posts: Post;
 }
@@ -66,6 +66,7 @@ const Blog = () => {
             </li>
           ))}
         </ul>
+        <AdComponent />
       </div>
     </>
   );

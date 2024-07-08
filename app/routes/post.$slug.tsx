@@ -8,7 +8,7 @@ import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import { useEffect } from "react";
-
+import AdComponent from "~/components/AdComponent";
 export const links: LinksFunction = () => [
   {
     rel: "stylesheet",
@@ -107,6 +107,7 @@ const PostSlug = () => {
           </div>
         </div>
       </div>
+      <AdComponent />
     </div>
   );
 };
