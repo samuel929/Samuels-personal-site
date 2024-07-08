@@ -1,26 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function AdComponent() {
+  const adRef = useRef(null);
   useEffect(() => {
-    const handleLoad = () => {
+    if (adRef.current && window.adsbygoogle) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (error) {
-        console.error("Error loading AdSense ad:", error);
+      } catch (e) {
+        console.error("AdSense error:", e);
       }
-    };
-
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-      return () => window.removeEventListener("load", handleLoad);
     }
   }, []);
   return (
     <div className='w-full mx-auto overflow-hidden'>
       <div className='relative' style={{ paddingTop: "100%" }}>
         <ins
+          ref={adRef}
           className='adsbygoogle absolute top-0 left-0 w-full h-full'
           style={{ display: "block" }}
           data-ad-client='ca-pub-3829158537608414'
