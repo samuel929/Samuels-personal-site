@@ -41,7 +41,7 @@ const Pagination = ({ currentPage, totalPages, baseUrl }: PaginationProps) => {
               className={`w-8 h-8 flex items-center justify-center rounded-full mx-1 ${
                 page === currentPage
                   ? "bg-coral-500 text-[#9d303c] font-bold"
-                  : "text-gray-600 hover:bg-gray-200"
+                  : "text-black hover:bg-rose-200"
               }`}
             >
               {page}
