@@ -7,7 +7,7 @@ import { PostId } from "~/utils/interface";
 import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 export const links: LinksFunction = () => [
   {
     rel: "stylesheet",
@@ -44,28 +44,32 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 const PostSlug = () => {
   const { post } = useLoaderData() as IAppProps;
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  // const [showScrollTop, setShowScrollTop] = useState(false);
+  const contentRef = useRef(null);
+
   useEffect(() => {
-    Prism.highlightAll();
+    if (post.post.body.raw) {
+      Prism.highlightAll();
+    }
 
-    const handleScroll = () => {
-      if (window.pageYOffset > 300) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
-    };
+    // const handleScroll = () => {
+    //   if (window.pageYOffset > 300) {
+    //     setShowScrollTop(true);
+    //   } else {
+    //     setShowScrollTop(false);
+    //   }
+    // };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [post]);
+    // window.addEventListener("scroll", handleScroll);
+    // return () => window.removeEventListener("scroll", handleScroll);
+  }, [post.post.body.raw]);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  // const scrollToTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth",
+  //   });
+  // };
   return (
     <div className='xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700 lg:px-48'>
       <header className='pt-6 xl:pb-6'>
@@ -88,7 +92,10 @@ const PostSlug = () => {
       </header>
       <div className='divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0'>
         <div className='divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0'>
-          <div className='prose max-w-none pt-10 pb-8 dark:prose-invert'>
+          <div
+            ref={contentRef}
+            className='prose max-w-none pt-10 pb-8 dark:prose-invert'
+          >
             <RichText
               content={post.post.body.raw}
               renderers={{
@@ -124,7 +131,7 @@ const PostSlug = () => {
           </div>
         </div>
       </div>
-      {showScrollTop && (
+      {/* {showScrollTop && (
         <button
           onClick={scrollToTop}
           className='fixed bottom-8 right-8 bg-red-500 text-white p-2 rounded-full shadow-lg hover:bg-red-600 transition-colors duration-300'
@@ -145,7 +152,7 @@ const PostSlug = () => {
             />
           </svg>
         </button>
-      )}
+      )} */}
     </div>
   );
 };
