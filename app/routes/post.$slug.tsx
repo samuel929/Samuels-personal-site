@@ -7,8 +7,7 @@ import { PostId } from "~/utils/interface";
 import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
-import { useEffect } from "react";
-import AdComponent from "~/components/AdComponent";
+import { useEffect, useState } from "react";
 export const links: LinksFunction = () => [
   {
     rel: "stylesheet",
@@ -45,10 +44,28 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 const PostSlug = () => {
   const { post } = useLoaderData() as IAppProps;
-
+  const [showScrollTop, setShowScrollTop] = useState(false);
   useEffect(() => {
     Prism.highlightAll();
+
+    const handleScroll = () => {
+      if (window.pageYOffset > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [post]);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className='xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700 lg:px-48'>
       <header className='pt-6 xl:pb-6'>
@@ -107,7 +124,28 @@ const PostSlug = () => {
           </div>
         </div>
       </div>
-      <AdComponent />
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className='fixed bottom-8 right-8 bg-red-500 text-white p-2 rounded-full shadow-lg hover:bg-red-600 transition-colors duration-300'
+          aria-label='Scroll to top'
+        >
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            className='h-6 w-6'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke='currentColor'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M5 10l7-7m0 0l7 7m-7-7v18'
+            />
+          </svg>
+        </button>
+      )}
     </div>
   );
 };

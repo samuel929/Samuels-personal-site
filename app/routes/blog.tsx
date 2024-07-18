@@ -3,14 +3,24 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { gql } from "graphql-request";
 import { hygraph } from "~/utils/hygraph.server";
 import { Post } from "~/utils/interface";
-import AdComponent from "~/components/AdComponent";
+import Pagination from "~/components/Pagination";
+
 interface IAppProps {
-  posts: Post;
+  posts: Post[];
+  totalPosts: number;
+  currentPage: number;
+  totalPages: number;
 }
-export async function loader({}: LoaderFunctionArgs) {
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get("page") || "1", 10);
+  const pageSize = 5;
+  const offset = (page - 1) * pageSize;
+
   const query = gql`
-    query Post {
-      posts {
+    query Post($limit: Int, $offset: Int) {
+      posts(first: $limit, skip: $offset, orderBy: createdAt_DESC) {
         createdAt
         id
         overview
@@ -18,29 +28,37 @@ export async function loader({}: LoaderFunctionArgs) {
         title
         updatedAt
       }
+      postsConnection {
+        aggregate {
+          count
+        }
+      }
     }
   `;
 
-  const posts = await hygraph.request(query);
-  return json({ posts });
+  const { posts, postsConnection }: any = await hygraph.request(query, {
+    limit: pageSize,
+    offset,
+  });
+  const totalPosts = postsConnection.aggregate.count;
+  const totalPages = Math.ceil(totalPosts / pageSize);
+
+  return json({ posts, totalPosts, currentPage: page, totalPages });
 }
 
 const Blog = () => {
-  const { posts } = useLoaderData() as IAppProps;
+  const { posts, currentPage, totalPages } = useLoaderData<IAppProps>();
 
   return (
-    <>
+    <div>
       <div className='divide-y divide-gray-200 dark:divide-gray-700'>
         <div className='space-2 pt-6 pb-8 md:space-y-5'>
-          <h1
-            className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100
-    sm:text-4xl sm:leading-10 md:text-6xl'
-          >
+          <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl'>
             All Blog Posts
           </h1>
         </div>
         <ul>
-          {posts?.posts?.map((post) => (
+          {posts.map((post: any) => (
             <li key={post.id} className='py-4'>
               <article className='space-y-2 xl:grid-cols-4 xl:items-baseline xl:space-y-0'>
                 <div>
@@ -66,9 +84,15 @@ const Blog = () => {
             </li>
           ))}
         </ul>
-        <AdComponent />
+        <div className='my-8'>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl='/blog'
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
