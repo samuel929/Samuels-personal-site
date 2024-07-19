@@ -7,8 +7,9 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
+import { cssBundleHref } from "@remix-run/css-bundle";
 import "./tailwind.css";
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, json, LinksFunction } from "@remix-run/node";
 import { themeSessionResolver } from "./utils/session.server";
 import {
   PreventFlashOnWrongTheme,
@@ -17,6 +18,11 @@ import {
 } from "remix-themes";
 import { ReactNode } from "react";
 import Navbar from "./components/Navbar";
+
+export const links: LinksFunction = () => [
+  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  // ...
+];
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { getTheme } = await themeSessionResolver(request);

@@ -13,16 +13,26 @@
   "dependencies": {
     "@graphcms/rich-text-react-renderer": "^0.6.1",
     "@headlessui/react": "^2.1.1",
+    "@remix-run/css-bundle": "^2.10.3",
     "@remix-run/node": "^2.10.0",
     "@remix-run/react": "^2.10.0",
     "@remix-run/serve": "^2.10.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.3.7",
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.0",
     "isbot": "^4.1.0",
+    "lucide-react": "^0.409.0",
+    "next-themes": "^0.3.0",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remix-themes": "^1.3.1"
+    "react-icon-cloud": "^4.1.4",
+    "react-scroll-to-top": "^3.0.0",
+    "remix-themes": "^1.3.1",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.10.0",
