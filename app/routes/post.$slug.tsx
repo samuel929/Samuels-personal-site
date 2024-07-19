@@ -115,7 +115,12 @@ const PostSlug = () => {
           </div>
         </div>
       </div>
-      <ScrollToTop smooth color='#6f00ff' component={<ScrollToTopButton />} />
+      <ScrollToTop
+        smooth
+        color='#6f00ff'
+        component={<ScrollToTopButton />}
+        style={{ background: "none", boxShadow: "none" }}
+      />
     </div>
   );
 };
