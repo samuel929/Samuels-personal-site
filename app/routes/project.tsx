@@ -1,4 +1,4 @@
-import { json, LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { gql } from "graphql-request";
 import { hygraph } from "~/utils/hygraph.server";
@@ -8,7 +8,7 @@ interface IAppProps {
   projects: Projects;
 }
 
-export async function loader({}: LoaderFunctionArgs) {
+export async function loader() {
   const query = gql`
     query Projects {
       projects {

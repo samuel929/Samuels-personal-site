@@ -1,0 +1,17 @@
+import { PlusSquare } from "lucide-react";
+
+const AddResume = () => {
+  return (
+    <div>
+      <div
+        className='p-14 py-24 border items-center flex justify-center bg-gray-600
+      rounded-lg h-[280px] hover:scale-105 transition-all hover:shadow-md cursor-pointer border-dashed
+      '
+      >
+        <PlusSquare />
+      </div>
+    </div>
+  );
+};
+
+export default AddResume;
