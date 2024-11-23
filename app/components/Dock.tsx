@@ -60,7 +60,7 @@ const Icons = {
     </a>
   ),
   discord: () => (
-    <a href='#' target='_bank'>
+    <a href='https://discord.gg/gCXE39S5' target='_bank'>
       <svg
         viewBox='0 0 640 512'
         fill='currentColor'

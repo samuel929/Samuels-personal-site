@@ -1,33 +1,41 @@
 export interface Post {
     posts: {
-        createdAt: string,
-        id: string,
-        overview: string,
-        slug: string
-        title: string
-    }[]
+        createdAt: string;
+        id: string;
+        overview: string;
+        slug: string;
+        title: string;
+    }[];
 }
 
 export interface PostId {
     post: {
-        id: string,
-        overview: string,
-        title: string,
-        slug: string,
-        publishedAt: string,
-        body: any
-    }
+        id: string;
+        overview: string;
+        title: string;
+        slug: string;
+        publishedAt: string;
+        body: any;
+    };
 }
 
 export interface Projects {
     projects: {
-        id: string,
-        link: string,
-        overview: string,
-        title: string
+        id: string;
+        link: string;
+        overview: string;
+        title: string;
         titleImage: {
-            url: string
-        }
-        publishedAt: string
-    }[]
+            url: string;
+        };
+        publishedAt: string;
+    }[];
+}
+
+export interface Resume {
+    email: string;
+    id: string;
+    resumeId: string;
+    username: string;
+    title: string;
 }

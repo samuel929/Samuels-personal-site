@@ -49,16 +49,7 @@ const Navbar = () => {
                   >
                     Projects
                   </NavLink>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive
-                        ? "border-red-500 dark:bg-gray-900 dark:text-white h-full inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                        : "border-transparent text-gray-500 dark:text-gray-300 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                    }
-                    to='/resumeBuilder'
-                  >
-                    ResumeBuilder
-                  </NavLink>
+
                   <NavLink
                     className={({ isActive }) =>
                       isActive
@@ -219,16 +210,7 @@ const Navbar = () => {
               >
                 Projects
               </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "bg-red-50 border-red-500 text-red-500 block pl-3 pr-4 py-2 border-l-4 text-base font-medium dark:bg-gray-800"
-                    : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium dark:text-white dark:hover-gray-700"
-                }
-                to='/resumeBuilder'
-              >
-                ResumeBuilder
-              </NavLink>
+
               <NavLink
                 className={({ isActive }) =>
                   isActive

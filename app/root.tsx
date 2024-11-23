@@ -18,6 +18,7 @@ import {
 } from "remix-themes";
 import { ReactNode } from "react";
 import Navbar from "./components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -76,6 +77,7 @@ function Layout({ children }: { children: ReactNode }) {
     <div>
       <Navbar />
       <main className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>{children}</main>
+      <Toaster />
     </div>
   );
 }
