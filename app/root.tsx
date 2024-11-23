@@ -1,4 +1,5 @@
 import {
+  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
@@ -6,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useRouteError,
 } from "@remix-run/react";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import "./tailwind.css";
@@ -19,6 +21,70 @@ import {
 import { ReactNode } from "react";
 import Navbar from "./components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  let errorMessage = "Something went wrong";
+  let errorDetails = "";
+
+  if (isRouteErrorResponse(error)) {
+    errorMessage = error.data || "Something went wrong";
+    errorDetails = `${error.status} ${error.statusText}`;
+  } else if (error instanceof Error) {
+    errorMessage = error.message;
+    errorDetails = error.stack;
+  }
+
+  return (
+    <html lang='en'>
+      <head>
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='width=device-width,initial-scale=1' />
+        <Meta />
+        <Links />
+        <title>Something went wrong</title>
+      </head>
+      <body className='bg-pink-50'>
+        <div className='min-h-screen flex items-center justify-center p-4'>
+          <div className='text-center p-8 max-w-md'>
+            {/* Sad face document icon using basic shapes */}
+            <div className='mx-auto mb-6 w-16 h-20 relative bg-pink-200 rounded-lg'>
+              <div className='absolute top-4 left-4 w-1 h-1 bg-pink-400 rounded-full'></div>
+              <div className='absolute top-4 right-4 w-1 h-1 bg-pink-400 rounded-full'></div>
+              <div className='absolute bottom-4 left-1/2 w-6 h-1 -ml-3 bg-pink-400 rounded-full'></div>
+              <div className='absolute -right-1 -top-1 w-3 h-3 bg-pink-200 transform rotate-45'></div>
+            </div>
+
+            {/* Error messages */}
+            <h1 className='text-2xl font-medium text-gray-800 mb-2'>
+              Something went wrong
+            </h1>
+            <p className='text-gray-500 mb-8'>
+              We are already working on fixing it
+            </p>
+
+            {/* Development-only error details */}
+            {process.env.NODE_ENV === "development" && errorDetails && (
+              <div className='mt-4 p-4 bg-pink-100 rounded-lg text-left'>
+                <details className='cursor-pointer'>
+                  <summary className='text-sm font-medium text-pink-900'>
+                    Error Details
+                  </summary>
+                  <pre className='mt-2 text-xs text-pink-800 overflow-auto p-2'>
+                    {errorDetails}
+                  </pre>
+                </details>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -43,6 +109,7 @@ export default function AppWithProvider() {
 
 function App() {
   const [theme] = useTheme();
+
   return (
     <html lang='en' data-theme={theme ?? ""}>
       <head>
