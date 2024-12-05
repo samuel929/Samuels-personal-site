@@ -148,7 +148,10 @@ function App() {
             </h1>
             <p className='text-gray-600 dark:text-gray-300'>
               Our website is currently under construction. Stay tuned for
-              updates! Connect with us on Discord !
+              updates!
+            </p>
+            <p className='text-gray-600 dark:text-gray-300'>
+              Connect with us on Discord Now! Click the Icon below
             </p>
             <div className='flex justify-center'>
               <a href='https://discord.gg/Keja3YX8'>
