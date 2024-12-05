@@ -3,7 +3,6 @@ import {
   Links,
   LiveReload,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
@@ -19,8 +18,9 @@ import {
   useTheme,
 } from "remix-themes";
 import { ReactNode } from "react";
-import Navbar from "./components/Navbar";
-import { Toaster } from "@/components/ui/toaster";
+
+import { Toaster } from "../@/components/ui/toaster";
+import { motion } from "framer-motion";
 
 export function ErrorBoundary() {
   const error = useRouteError();
@@ -32,8 +32,9 @@ export function ErrorBoundary() {
     errorMessage = error.data || "Something went wrong";
     errorDetails = `${error.status} ${error.statusText}`;
   } else if (error instanceof Error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     errorMessage = error.message;
-    errorDetails = error.stack;
+    errorDetails = error.stack as any;
   }
 
   return (
@@ -125,9 +126,41 @@ function App() {
 
         <Links />
       </head>
-      <body className='bg-white text-black dark:bg-gray-900 dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800'>
+      <body className='bg-white text-black dark:bg-gray-900 dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800 flex flex-col justify-center'>
         <Layout>
-          <Outlet />
+          <div className='text-center p-8 '>
+            {/* Animated Icon */}
+            <motion.div
+              className='relative mx-auto mb-8 w-24 h-24'
+              animate={{ rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+                duration: 2,
+                ease: "linear",
+              }}
+            >
+              <div className='absolute inset-0 border-4 border-t-pink-500 border-pink-200 rounded-full'></div>
+            </motion.div>
+
+            {/* Heading */}
+            <h1 className='text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4'>
+              We're Building Something Amazing
+            </h1>
+            <p className='text-gray-600 dark:text-gray-300'>
+              Our website is currently under construction. Stay tuned for
+              updates!
+            </p>
+
+            {/* Optional: Countdown or Call-to-action */}
+            <div className='mt-8'>
+              <a
+                href='mailto:samlambo929@gmail.com'
+                className='inline-block px-6 py-3 text-sm font-medium text-white bg-pink-500 hover:bg-pink-600 rounded-lg'
+              >
+                Contact Us
+              </a>
+            </div>
+          </div>
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
@@ -142,8 +175,9 @@ export { App };
 function Layout({ children }: { children: ReactNode }) {
   return (
     <div>
-      <Navbar />
-      <main className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>{children}</main>
+      <main className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center h-dvh'>
+        {children}
+      </main>
       <Toaster />
     </div>
   );

@@ -1,4 +1,5 @@
-import { CoolMode } from "@/components/magicui/cool-mode";
+/* eslint-disable jsx-a11y/iframe-has-title */
+import { CoolMode } from "../../@/components/magicui/cool-mode";
 
 const ComingSoonPage = () => {
   return (

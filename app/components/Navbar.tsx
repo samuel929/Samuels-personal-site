@@ -1,9 +1,13 @@
 import { Disclosure } from "@headlessui/react";
 import { Link, NavLink } from "@remix-run/react";
-import { useTheme } from "remix-themes";
+import { useState } from "react";
 
 const Navbar = () => {
-  const [theme, setTheme] = useTheme();
+  // Assuming you have a type definition for Theme
+  type Theme = "light" | "dark";
+
+  // In your component
+  const [theme, setTheme] = useState<Theme | null>(null);
   return (
     <Disclosure as='nav'>
       {({ open }) => (
@@ -62,7 +66,9 @@ const Navbar = () => {
                   </NavLink>
                   <button
                     onClick={() =>
-                      setTheme((prev) => (prev === "dark" ? "light" : "dark"))
+                      setTheme((prev: Theme | null) =>
+                        prev === "dark" ? "light" : "dark"
+                      )
                     }
                   >
                     {theme === "dark" ? (
@@ -103,7 +109,9 @@ const Navbar = () => {
                 <button
                   className='mr-4'
                   onClick={() =>
-                    setTheme((prev) => (prev === "dark" ? "light" : "dark"))
+                    setTheme((prev: Theme | null) =>
+                      prev === "dark" ? "light" : "dark"
+                    )
                   }
                 >
                   {theme === "dark" ? (

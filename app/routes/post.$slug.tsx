@@ -99,7 +99,7 @@ const PostSlug = () => {
                     className='rounded-lg'
                   />
                 ),
-                a: ({ children, openInNewTab, href, rel, ...rest }) => (
+                a: ({ children, openInNewTab, href, ...rest }) => (
                   <a
                     href={href}
                     target={openInNewTab ? "_blank" : "_self"}
