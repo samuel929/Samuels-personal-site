@@ -59,7 +59,7 @@ export function ErrorBoundary() {
 
             {/* Error messages */}
             <h1 className='text-2xl font-medium text-gray-800 mb-2'>
-              Something went wrong
+              Something went wrong!!!!
             </h1>
             <p className='text-gray-500 mb-8'>
               We are already working on fixing it
